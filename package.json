@@ -1,7 +1,7 @@
 {
   "name": "cosmic-expansion",
-  "version": "0.1.0-dev",
-  "description": "Cosmological calculations for the expansion of the universe",
+  "version": "1.0.0",
+  "description": "A cosmic expansion calculator for the browser (and TypeScript)",
   "files": [
     "dist",
     "types"
@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pb-uk/cosmic-expansion.git"
+    "url": "git+https://cosmic-expansion/cosmic-expansion-js.git"
   },
   "keywords": [
     "calculator",
@@ -41,9 +41,9 @@
   "author": "https://github.com/pb-uk",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pb-uk/cosmic-expansion/issues"
+    "url": "https://cosmic-expansion/cosmic-expansion-js/issues"
   },
-  "homepage": "https://pb-uk.github.io/cosmic-expansion",
+  "homepage": "https://cosmic-expansion.github.io/",
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.2",
