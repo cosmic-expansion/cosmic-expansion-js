@@ -24,7 +24,7 @@ describe('The browser distribution', function () {
     expect(CosmicExpansion.version).to.equal(pkg.version);
   });
 
-  it('should expose the new and legacy APIs', function () {
+  it('should expose the correct API', function () {
     expect(Object.keys(CosmicExpansion).sort()).to.eql(api.sort());
   });
 });

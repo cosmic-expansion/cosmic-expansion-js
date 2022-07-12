@@ -12,17 +12,19 @@ For use in a browser include minimized code from the CDN:
 <script src="https://cdn.jsdelivr.net/npm/cosmic-expansion"></script>
 ```
 
-Legacy API:
+API:
 
 ```js
-const results = LightConeCalc.Calculate({;
-  s_eq: 3370,
-  Ynow,
-  Yinf: Ynow / Math.sqrt(OmegaL),
-  s_upper: z_upper + 1,
-  s_lower: z_lower + 1,
-  s_step: steps,
-  Omega,
+const options = {};
+const model = CosmicExpansion.create(options);
+const nearResults = model.calculateExpansion({
+  stretch: [1.01, 0.99],
+  steps: 10,
+});
+const farResults = model.calculateExpansion({
+  stretch: [5001, 0.0001],
+  steps: 10,
+  exponentialSteps: true,
 });
 ```
 

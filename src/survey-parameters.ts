@@ -1,7 +1,7 @@
 export type CosmicExpansionSurvey = {
   h0: number;
   omegaLambda0: number;
-  zeq: number;
+  zEq: number;
   omega0: number;
   temperature0: number;
 };
@@ -17,7 +17,7 @@ export type CosmicExpansionSurvey = {
 export const planck2018: CosmicExpansionSurvey = {
   h0: 67.66,
   omegaLambda0: 0.6889,
-  zeq: 3387,
+  zEq: 3387,
   omega0: 1,
   temperature0: 2.72548,
 };
@@ -26,7 +26,7 @@ export const planck2018: CosmicExpansionSurvey = {
 export const planck2015: CosmicExpansionSurvey = {
   h0: 67.74,
   omegaLambda0: 0.691,
-  zeq: 3370,
+  zEq: 3370,
   omega0: 1,
   temperature0: 2.72548,
 };
@@ -35,7 +35,7 @@ export const planck2015: CosmicExpansionSurvey = {
 export const wmap2013: CosmicExpansionSurvey = {
   h0: 69.8,
   omegaLambda0: 0.72,
-  zeq: 3300,
+  zEq: 3300,
   omega0: 1,
   temperature0: 2.72548,
 };

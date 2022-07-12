@@ -82,7 +82,7 @@ interface CosmicExpansionVariables {
 
 interface CosmicExpansionModelProps {
   /** Redshift when matter and radiation densities were equal \\( z_{eq} \\). */
-  zeq?: number;
+  zEq?: number;
 
   /** Total density paramater \\( \Omega_{tot} \\). */
   omega0: number;
@@ -150,20 +150,20 @@ export class CosmicExpansionModel {
       h0,
       omega0,
       omegaLambda0,
-      zeq,
+      zEq,
 
       gyrToSeconds,
       rhoConst,
     } = props;
 
     const h0Gy = h0 * kmsmpscToGyr;
-    const seq = zeq + 1;
+    const sEq = zEq + 1;
     const h0Seconds = (h0 * kmsmpscToGyr) / gyrToSeconds;
 
     // Calculate current density parameters.
     const rhoCrit0 = rhoConst * h0Seconds * h0Seconds;
-    const omegaM0 = ((omega0 - omegaLambda0) * seq) / (seq + 1);
-    const omegaRad0 = omegaM0 / seq;
+    const omegaM0 = ((omega0 - omegaLambda0) * sEq) / (sEq + 1);
+    const omegaRad0 = omegaM0 / sEq;
     const OmegaK0 = 1 - omegaM0 - omegaRad0 - omegaLambda0;
 
     return {

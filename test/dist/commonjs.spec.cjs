@@ -17,7 +17,7 @@ describe('The Common JS module distribution', function () {
     expect(pkg.exports.require).to.equal('./dist/index.cjs');
   });
 
-  it('should expose the new and legacy APIs', function () {
+  it('should expose the correct API', function () {
     expect(Object.keys(moduleApi).sort()).to.eql(api.sort());
   });
 
