@@ -5,6 +5,8 @@ import * as physicalConstants from './physical-constants.js';
 import { getStretchValues } from './stretch-range.js';
 import * as surveyParameters from './survey-parameters.js';
 
+const defaultSurvey = 'planck2018Bao';
+
 /**
  * H(s)^2 = H_0^2 (\Omega_m s^3 + \Omega_{rad} s^4 + \Omega_\Lambda s^{3(1+w)} + \Omega_k s^2 )
  */
@@ -108,8 +110,8 @@ interface CosmicExpansionModelProps {
 }
 
 export interface CosmicExpansionModelOptions {
-  // The key of a survey to use for parameters (defaults to `planck2018`).
-  survey?: 'planck2018' | 'planck2015' | 'wmap2013';
+  // The key of a survey to use for parameters.
+  survey?: 'planck2018Bao' | 'planck2018' | 'planck2015' | 'wmap2013';
   // We can override any of the other model properties.
   [key: string]: number | string | undefined;
 }
@@ -138,7 +140,7 @@ export class CosmicExpansionModel {
     const survey =
       options.survey && surveyParameters[options.survey]
         ? surveyParameters[options.survey]
-        : surveyParameters['planck2018'];
+        : surveyParameters[defaultSurvey];
     const props = {
       ...physicalConstants,
       ...survey,

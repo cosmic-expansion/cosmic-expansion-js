@@ -3,15 +3,26 @@ import { expect } from 'chai';
 import { create } from '../../src/model.js';
 
 describe('Expansion calculations', function () {
-  it('should calculate expansion for the default inputs (Planck 2018)', function () {
+  it('should calculate the age for Planck 2018 inputs', function () {
     // Current age of the universe.
-    const t0 = 13.787;
+    const t0 = 13.7971;
+    expect(create().age / t0).not.to.be.closeTo(1, 0.01 / 100);
+    const model = create({ survey: 'planck2018' });
+    expect(model.age / t0).to.be.closeTo(1, 0.01 / 100);
+  });
+
+  it('should calculate expansion for the default inputs (Planck 2018+BAO)', function () {
+    // Current age of the universe.
+    const t0 = 13.7839;
     // Redshift at separation.
     const zstar = 1089.8;
     // Radius at separation.
     // const rstar = (144.57 * 3.26156) / 1000;
 
-    const [atSeparation, now] = create().calculateExpansion({
+    const model = create();
+    expect(model.age / t0).to.be.closeTo(1, 0.01 / 100);
+
+    const [atSeparation, now] = model.calculateExpansion({
       // ## z_* ##, the redshift at photon separationfrom Planck 2018 is 1089.8
       stretch: [1 + zstar, 1],
     });
@@ -20,7 +31,7 @@ describe('Expansion calculations', function () {
     // (13.8Gy since big bang).
 
     expect(now.z).to.equal(0);
-    expect(now.t).to.be.closeTo(t0, 0.0005);
+    expect(now.t).to.be.closeTo(t0, 0.002);
     expect(now.dNow).to.equal(0);
     expect(now.d).to.equal(0);
     expect(now.vGen).to.equal(1);
@@ -49,7 +60,7 @@ describe('Expansion calculations', function () {
 
     // Values taken from
     // https://www.physicsforums.com/threads/a-glitch-in-jorries-cosmo-calculator.1014779/post-6632672
-    const tol = 0.001;
+    const tol = 0.005;
     expect(results[0].dNow).to.be.closeTo(1.41004, tol);
     expect(results[1].dNow).to.be.closeTo(1.27214, tol);
     expect(results[2].dNow).to.be.closeTo(1.13354, tol);
