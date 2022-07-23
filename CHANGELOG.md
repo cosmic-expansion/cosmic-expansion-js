@@ -1,5 +1,11 @@
-# LightConeCalc change log
+# Cosmic expansion change log
 
-## `1.0.0` _2022-07-12_
+## Unreleased
+
+### Added
+
+- More unit conversions for external use.
+
+## 1.0.0 _2022-07-12_
 
 Import first release.
