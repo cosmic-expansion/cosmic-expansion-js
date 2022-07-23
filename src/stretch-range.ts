@@ -78,8 +78,8 @@ export const getStretchValues = (inputs: StretchInputs): number[] => {
   const [upper, lower] = stretch;
   const steps = [upper];
 
-  if (lower > 1 || upper < 1) {
-    // If s = 1 is not in the range just do even steps all the way down.
+  if (lower >= 1 || upper <= 1) {
+    // If s = 1 is not spanned by the range just do even steps all the way down.
     if (exponentialSteps) {
       addStretchValues(steps, upper, lower, stepCount);
       return steps;
