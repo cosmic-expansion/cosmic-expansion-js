@@ -40,4 +40,11 @@ describe('Step range calculations', function () {
       1.044, 1.033, 1.022, 1.0110000000000001, 1, 0.991, 0.982, 0.973, 0.964,
     ]);
   });
+
+  it('should not duplicate z = 0 if this starts or ends the range', function () {
+    let steps = getStretchValues({ stretch: [3, 1], steps: 2 });
+    expect(steps).to.eql([3, 2, 1]);
+    steps = getStretchValues({ stretch: [1, 0.8], steps: 2 });
+    expect(steps).to.eql([1, 0.9, 0.8]);
+  });
 });
