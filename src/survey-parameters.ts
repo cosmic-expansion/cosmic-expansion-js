@@ -1,7 +1,9 @@
 export interface CosmicExpansionSurvey {
   h0: number;
-  omegaLambda0: number;
+  omegaLambda0?: number;
+  omegaM0?: number;
   zEq: number;
+  sigma8?: number;
   omega0: number;
   temperature0: number;
   age?: number;
@@ -14,12 +16,12 @@ export interface CosmicExpansionSurvey {
  * Planck 2018: https://arxiv.org/abs/1807.06209
  */
 export const planck2018Bao: CosmicExpansionSurvey = {
-  h0: 67.7,
-  omegaLambda0: 0.6894,
+  h0: 67.66,
+  omegaM0: 0.3111,
   zEq: 3387,
   omega0: 1,
   temperature0: 2.72548,
-  age: 13.7839,
+  age: 13.787,
 };
 
 /**
@@ -28,12 +30,14 @@ export const planck2018Bao: CosmicExpansionSurvey = {
  * Planck 2018: https://arxiv.org/abs/1807.06209
  */
 export const planck2018: CosmicExpansionSurvey = {
-  h0: 67.32,
-  omegaLambda0: 0.6842,
+  h0: 67.36,
+  // omegaLambda0: 0.6847,
+  omegaM0: 0.3153,
+  sigma8: 0.8111,
   zEq: 3402,
   omega0: 1,
   temperature0: 2.72548,
-  age: 13.7971,
+  age: 13.797,
 };
 
 /**

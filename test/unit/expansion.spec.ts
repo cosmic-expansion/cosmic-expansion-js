@@ -1,26 +1,32 @@
 import { expect } from 'chai';
+// eslint-disable-next-line
+// @ts-ignore
+import planck2018Close from '../data/planck-2018-close.js';
+// eslint-disable-next-line
+// @ts-ignore
+import planck2018Wide from '../data/planck-2018-wide.js';
 
 import { create } from '../../src/model.js';
 
 describe('Expansion calculations', function () {
-  it('should calculate the age for Planck 2018 inputs', function () {
+  it('should calculate the age for Planck 2018', function () {
     // Current age of the universe.
-    const t0 = 13.7971;
-    expect(create().age / t0).not.to.be.closeTo(1, 0.01 / 100);
+    const t0 = 13.797;
+    expect(create().age).not.to.be.closeTo(t0, 0.002);
     const model = create({ survey: 'planck2018' });
-    expect(model.age / t0).to.be.closeTo(1, 0.01 / 100);
+    expect(model.age).to.be.closeTo(t0, 0.002);
   });
 
   it('should calculate expansion for the default inputs (Planck 2018+BAO)', function () {
     // Current age of the universe.
-    const t0 = 13.7839;
+    const t0 = 13.787;
     // Redshift at separation.
     const zstar = 1089.8;
     // Radius at separation.
     // const rstar = (144.57 * 3.26156) / 1000;
 
     const model = create();
-    expect(model.age / t0).to.be.closeTo(1, 0.01 / 100);
+    expect(model.age).to.be.closeTo(t0, 0.0012);
 
     const [atSeparation, now] = model.calculateExpansion({
       // ## z_* ##, the redshift at photon separationfrom Planck 2018 is 1089.8
@@ -31,7 +37,7 @@ describe('Expansion calculations', function () {
     // (13.8Gy since big bang).
 
     expect(now.z).to.equal(0);
-    expect(now.t).to.be.closeTo(t0, 0.002);
+    expect(now.t).to.be.closeTo(t0, 0.0012);
     expect(now.dNow).to.equal(0);
     expect(now.d).to.equal(0);
     expect(now.vGen).to.equal(1);
@@ -82,5 +88,40 @@ describe('Expansion calculations', function () {
     expect(results[18].dNow).to.be.closeTo(1.17631, tol * 2);
     expect(results[19].dNow).to.be.closeTo(1.32623, tol * 2);
     expect(results[20].dNow).to.be.closeTo(1.47679, tol * 2);
+  });
+
+  describe('Calculations with Planck 2018 values', function () {
+    it('should calculate a close range around z = 0', async function () {
+      const results = create({ survey: 'planck2018' }).calculateExpansion({
+        stretch: [1.1, 0.9],
+        steps: 20,
+      });
+
+      let count = 0;
+      results.forEach((result, i) => {
+        Object.entries(result).forEach(([key, value]) => {
+          expect(value).to.equal(planck2018Close[i][key]);
+          ++count;
+        });
+      });
+      expect(count).to.equal(378);
+    });
+
+    it('should calculate the default range', async function () {
+      const results = create({ survey: 'planck2018' }).calculateExpansion({
+        stretch: [10000, 0.01],
+        steps: 10,
+        exponentialSteps: true,
+      });
+
+      let count = 0;
+      results.forEach((result, i) => {
+        Object.entries(result).forEach(([key, value]) => {
+          expect(value).to.equal(planck2018Wide[i][key]);
+          ++count;
+        });
+      });
+      expect(count).to.equal(198);
+    });
   });
 });

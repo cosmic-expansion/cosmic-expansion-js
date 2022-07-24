@@ -84,7 +84,7 @@ interface CosmicExpansionVariables {
 
 interface CosmicExpansionModelProps {
   /** Redshift when matter and radiation densities were equal \\( z_{eq} \\). */
-  zEq?: number;
+  zEq: number;
 
   /** Total density paramater \\( \Omega_{tot} \\). */
   omega0: number;
@@ -147,35 +147,41 @@ export class CosmicExpansionModel {
       ...options,
     };
 
-    const {
-      kmsmpscToGyr,
-      h0,
-      omega0,
-      omegaLambda0,
-      zEq,
+    const { kmsmpscToGyr, h0, omega0, gyrToSeconds, rhoConst, zEq } = props;
 
-      gyrToSeconds,
-      rhoConst,
-    } = props;
+    const sEq = zEq + 1;
+
+    let omegaM0, omegaLambda0;
+
+    // Use omegaLambda0 if it is provided.
+    if (props.omegaLambda0 != null) {
+      omegaLambda0 = props.omegaLambda0;
+      omegaM0 = (omega0 - omegaLambda0) * (sEq / (sEq + 1));
+    } else if (props.omegaM0 != null) {
+      omegaM0 = props.omegaM0;
+      omegaLambda0 = omega0 - omegaM0 * ((sEq + 1) / sEq);
+    } else {
+      throw new Error('Must provide either omegaM0 or omegaLambda0');
+    }
+
+    const omegaRad0 = omegaM0 / sEq;
 
     const h0Gy = h0 * kmsmpscToGyr;
-    const sEq = zEq + 1;
     const h0Seconds = (h0 * kmsmpscToGyr) / gyrToSeconds;
 
     // Calculate current density parameters.
     const rhoCrit0 = rhoConst * h0Seconds * h0Seconds;
-    const omegaM0 = ((omega0 - omegaLambda0) * sEq) / (sEq + 1);
-    const omegaRad0 = omegaM0 / sEq;
     const OmegaK0 = 1 - omegaM0 - omegaRad0 - omegaLambda0;
 
     return {
+      ...props,
       h0Gy,
       rhoCrit0,
+      OmegaK0,
+      zEq,
+      omegaLambda0,
       omegaM0,
       omegaRad0,
-      OmegaK0,
-
-      ...props,
     };
   }
 

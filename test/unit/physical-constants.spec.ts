@@ -9,7 +9,7 @@ describe('Constants and conversions', function () {
     });
 
     it('should include g as recommended in CODATA 2018', function () {
-      expect(constants.g).to.equal(6.67430e-11);
+      expect(constants.g).to.equal(6.6743e-11);
     });
 
     it('should calculate rhoConst using the CODATA 2018 value of G to machine precision', function () {
@@ -28,7 +28,7 @@ describe('Constants and conversions', function () {
     });
 
     it('should convert the Hubble constant to per giga light year to machine precision', function () {
-      expect(constants.kmsmpscToGyr).to.equal(1.0227121650e-3 + 4.569493657e-14);
+      expect(constants.kmsmpscToGyr).to.equal(1.022712165e-3 + 4.569493657e-14);
     });
 
     it('should convert light years to metres to machine precision', function () {
@@ -44,4 +44,3 @@ describe('Constants and conversions', function () {
     });
   });
 });
-

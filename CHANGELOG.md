@@ -1,10 +1,11 @@
 # Cosmic expansion change log
 
-## Unreleased
+## ## 1.1.0 _2022-07-24_
 
 ### Added
 
 - More unit conversions for external use.
+- Calculate omegaLambda0 from omegaM0 unless it is provided.
 
 ### Fixed
 

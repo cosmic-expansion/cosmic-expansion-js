@@ -10,7 +10,7 @@ export const c = 299792458;
  *
  * G = 6.674 30(15)e-11 m^3 kg-1 s-2 (https://physics.nist.gov/constants)
  */
-export const g = 6.67430e-11;
+export const g = 6.6743e-11;
 
 /**
  * \\( \frac{3}{8 \pi G} \\)
@@ -66,7 +66,7 @@ export const lyToM = 9.4607304725808e15;
  */
 export const parsecToLy = 3.2615637771674337;
 
- /**
+/**
  * Convert parsecs to metres.
  *
  * - 1 parsec = \\( 648,000 / \pi \\) au.
