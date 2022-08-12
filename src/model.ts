@@ -40,6 +40,8 @@ export interface ExpansionResult {
   dNow: number;
   /** Proper distance at this redshift when the light was emitted (Gly). */
   d: number;
+  /** Event horizon (largest proper distance that light can ever bridge) (Gly) */
+  dHor: number;
   /** Particle horizon (Gly) */
   dPar: number;
 
@@ -70,6 +72,7 @@ interface IntegrationResult {
   dNow: number;
   // r: number;
   dPar: number;
+  dHor: number;
 }
 
 interface CosmicExpansionVariables {
@@ -202,11 +205,10 @@ export class CosmicExpansionModel {
   }
 
   createVariablesAtStretchFunction() {
-    const { getESquaredAtStretch } = this;
     const { h0, temperature0, omegaLambda0, omegaM0, omegaRad0, rhoCrit0 } =
       this.props;
     return (s: number): CosmicExpansionVariables => {
-      const eSquared = getESquaredAtStretch(s);
+      const eSquared = this.getESquaredAtStretch(s);
       const s2 = s * s;
       const h = h0 * Math.sqrt(eSquared);
       const omegaM = (omegaM0 * s2 * s) / eSquared;
@@ -292,6 +294,8 @@ export class CosmicExpansionModel {
         t: (thsAtInfinity - ths) / h0Gy,
         dNow: Math.abs(th - thAtOne) / h0Gy,
         dPar: (thAtInfinity - th) / s / h0Gy,
+        // ## d_{hor}(s) = \frac 1 {H_0 s} \int_{S=0}^s \frac 1 {\sqrt {E^2(S)}} dS ##
+        dHor: th / s / h0Gy,
       });
     }
 
@@ -306,7 +310,7 @@ export class CosmicExpansionModel {
     const results: ExpansionResult[] = [];
 
     for (let i = integrationResults.length - 1; i >= 0; --i) {
-      const { s, t, dNow: dUnsafe, dPar } = integrationResults[i];
+      const { s, t, dNow: dUnsafe, dHor, dPar } = integrationResults[i];
 
       const params = this.getVariablesAtStretch(s);
       const hGy = params.h * kmsmpscToGyr;
@@ -321,6 +325,7 @@ export class CosmicExpansionModel {
         dNow,
         d: dNow / s,
         r: 1 / hGy,
+        dHor,
         dPar,
         vGen: params.h / (s * h0),
         vNow: dNow * h0Gy,

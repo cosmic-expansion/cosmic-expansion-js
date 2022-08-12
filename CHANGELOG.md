@@ -1,6 +1,12 @@
 # Cosmic expansion change log
 
-## ## 1.1.0 _2022-07-24_
+## Unreleased
+
+### Added
+
+- Calculate the Event Horizon dHor.
+
+## 1.1.0 _2022-07-24_
 
 ### Added
 
