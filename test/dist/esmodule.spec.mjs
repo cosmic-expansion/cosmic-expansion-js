@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { readFileSync } from 'fs';
 
-import api from './api.cjs';
+import api from '../api.cjs';
 
 import { version } from '../../dist/index.js';
 import * as moduleApi from '../../dist/index.js';

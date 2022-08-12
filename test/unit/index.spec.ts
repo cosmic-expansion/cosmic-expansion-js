@@ -1,19 +1,15 @@
 import { expect } from 'chai';
 import { readFileSync } from 'fs';
 
+import * as CosmicExpansion from '../../src/index.js';
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import api from '../api.cjs';
 
-// Enter the module name created by the IIFE here.
-const moduleName = 'CosmicExpansion';
-
 const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
-const iife = readFileSync(pkg.browser, 'utf8');
 
-const CosmicExpansion = eval(`(() => {${iife}; return ${moduleName}})()`);
-
-describe('The browser distribution', function () {
+describe('The entry point', function () {
   it('should have the same version as package.json', function () {
     expect(CosmicExpansion.version).to.equal(pkg.version);
   });
