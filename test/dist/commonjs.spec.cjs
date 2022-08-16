@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { readFileSync } = require('fs');
 
-const api = require('./api.cjs');
+const api = require('../api.cjs');
 
 const { version } = require('../../dist/index.cjs');
 const moduleApi = require('../../dist/index.cjs');

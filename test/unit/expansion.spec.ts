@@ -104,7 +104,8 @@ describe('Expansion calculations', function () {
           ++count;
         });
       });
-      expect(count).to.equal(378);
+      // Make sure we have tested every value we expect.
+      expect(count).to.equal(399);
     });
 
     it('should calculate the default range', async function () {
@@ -121,7 +122,8 @@ describe('Expansion calculations', function () {
           ++count;
         });
       });
-      expect(count).to.equal(198);
+      // Make sure we have tested every value we expect.
+      expect(count).to.equal(209);
     });
   });
 });
